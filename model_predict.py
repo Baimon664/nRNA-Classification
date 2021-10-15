@@ -2,11 +2,11 @@ import tensorflow as tf
 from tensorflow import keras
 import numpy as np
 
-model = keras.models.load_model("my_model_v1.h5")
+model = keras.models.load_model("my_model_v2.h5")
 
 rna = input("RNA:").strip()
-fam = input("RFAM class (only num): ").strip()
-fam = "RF"+"0"*(5-len(fam))+fam
+# fam = input("RFAM class (only num): ").strip()
+# fam = "RF"+"0"*(5-len(fam))+fam
 b=np.array([])
 for i in rna:
     k=0
@@ -27,6 +27,7 @@ t=model.predict(b)
 t1=np.argmax(t)
 o = names.readlines()
 pred = o[t1][:-5]
-print(pred,pred==fam)
+# print(pred,pred==fam)
+print(pred)
 names.close()
 
