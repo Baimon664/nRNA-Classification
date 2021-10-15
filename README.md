@@ -1,1 +1,1 @@
-# Short nRNA-Classification
+# short non-coding RNA-Classification
