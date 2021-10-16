@@ -2,7 +2,7 @@ import tensorflow as tf
 from tensorflow import keras
 import numpy as np
 
-model = keras.models.load_model("my_model_v2.h5")
+model = keras.models.load_model("my_model_v3.h5")
 
 rna = input("RNA:").strip()
 # fam = input("RFAM class (only num): ").strip()
