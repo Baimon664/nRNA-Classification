@@ -7,13 +7,13 @@ import numpy as np
 inputs = keras.Input(shape=(200,1), name="digits")
 x = tf.keras.layers.AveragePooling1D(pool_size=4,strides=1, padding='same')(inputs)
 x = tf.keras.layers.Flatten()(x)
-x = layers.Dense(3000, activation="relu", name="dense_1")(x)
+x = layers.Dense(3000, activation="tanh", name="dense_1")(x)
 x = layers.Dropout(.25)(x)
 x = layers.Dense(2400, activation="tanh", name="dense_2")(x)
 x = layers.Dropout(.25)(x)
 x = layers.Dense(2000, activation="tanh", name="dense_3")(x)
 x = layers.Dropout(.25)(x)
-x = layers.Dense(1600, activation="relu", name="dense_4")(x)
+x = layers.Dense(1600, activation="tanh", name="dense_4")(x)
 outputs = layers.Dense(951, activation="softmax", name="predictions")(x)
 
 
@@ -39,9 +39,6 @@ y_test = np.array(y_e).reshape((19020,1)).astype("float32")
 x_train = x_train.reshape([95100,200,1])
 x_test = x_test.reshape([19020,200,1])
 
-# print(x_train.shape)
-# print(y_train.shape)
-# print(x_train[0])
 
 model.compile(
     optimizer=keras.optimizers.SGD(learning_rate=0.1, momentum=0.0, nesterov=False, name="SGD"),
@@ -58,4 +55,4 @@ history = model.fit(
     validation_data=(x_test, y_test),
 )
 
-model.save("my_model_v2.h5")
+model.save("my_model_v3.h5")
