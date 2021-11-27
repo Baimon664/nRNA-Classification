@@ -9,12 +9,15 @@ def QMer(seq):
         data.append(list(seq[i:i+q]))
     return data
 
+def genname(i):
+  return "0"*(2-len(str(i)))+str(i)
+
 for i in names.readlines():
   i=i.strip()
   a=np.load("npy_2/"+i)
-  for z in range(100):
+  for z in range(1,21):
     k=""
-    p = a[z]
+    p = a[z*-1]
     for j in range(len(p)):
       if(p[j]=="A" or p[j]=="a"):
         k+='1'
@@ -31,4 +34,5 @@ for i in names.readlines():
     m.append(data)
   print(i,"finish")
 b=np.array(m)
-np.save("3mer.npy",b)
+np.save("3-mer_test.npy",b)
+names.close()
