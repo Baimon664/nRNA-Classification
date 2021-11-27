@@ -2,7 +2,7 @@ import tensorflow as tf
 from tensorflow import keras
 import numpy as np
 
-model = keras.models.load_model("my_model_v6.h5")
+model = keras.models.load_model("my_model_v7.h5")
 
 def QMer(seq):
     q=3
@@ -24,6 +24,7 @@ for i in rna:
     elif(i=='G'):
         k=4
     p.append(k)
+
 p=p+[0]*(200-len(p))
 p=QMer(p)
 b=np.array(p)
