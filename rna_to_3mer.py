@@ -25,7 +25,7 @@ for i in names.readlines():
       elif(p[j]=="G" or p[j]=="g"):
         k+='4'
       else:
-        k+='5'
+        k+='0'
     k+="0"*(200-len(k))
     data = QMer(k)
     m.append(data)

@@ -2,7 +2,7 @@ import tensorflow as tf
 from tensorflow import keras
 import numpy as np
 
-model = keras.models.load_model("my_model_v5.h5")
+model = keras.models.load_model("my_model_v6.h5")
 
 def QMer(seq):
     q=3

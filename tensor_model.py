@@ -5,14 +5,14 @@ from tensorflow.keras import layers
 import numpy as np
 
 inputs = keras.Input(shape=(198,3), name="digits")
-# x = tf.keras.layers.AveragePooling1D(pool_size=2,strides=1, padding='same')(inputs)
-x = tf.keras.layers.Flatten()(inputs)
-# x = tf.keras.layers.Flatten()(x)
-x = layers.Dense(951, activation="relu", name="dense_1")(x)  # 3000 3804 1000
+x = layers.Conv1D(filters=64, kernel_size=3, activation='relu')(inputs)
+x = layers.Flatten()(x)
 x = layers.Dropout(.5)(x)
-x = layers.Dense(951, activation="relu", name="dense_2")(x)  # 2000 2853 1000
+x = layers.Dense(951, activation="relu", name="dense_1")(x)  # 951
 x = layers.Dropout(.5)(x)
-x = layers.Dense(951, activation="relu", name="dense_3")(x)  # 1600 1902 1000
+x = layers.Dense(951, activation="relu", name="dense_2")(x) # 951 v6:500
+x = layers.Dropout(.5)(x)
+x = layers.Dense(951, activation="relu", name="dense_3")(x) # 951 v6:500
 outputs = layers.Dense(951, activation="softmax", name="predictions")(x)
 
 model = keras.Model(inputs=inputs, outputs=outputs)
@@ -37,7 +37,6 @@ y_test = np.array(y_e).reshape((19020,1)).astype("float32")
 x_train = x_train.astype("float32")/4
 x_test = x_test.astype("float32")/4
 
-
 model.compile(
     optimizer=keras.optimizers.SGD(learning_rate=0.05, momentum=0.1, nesterov=False, name="SGD"),
     loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=False,name='sparse_categorical_crossentropy'),
@@ -47,18 +46,13 @@ model.compile(
 
 print("Fit model on training data")
 
-# log_dir = "logs/fit/"
-# tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
 history = model.fit(
     x_train,
     y_train,
     batch_size=128,
-    epochs=30,
+    epochs=25,
     shuffle = True,
     validation_data=(x_test, y_test),
-    # callbacks=[tensorboard_callback]
 )
 
-model.save("my_model_v5.h5")
-
-#tensorboard --logdir logs/fit --host localhost --port 8888
+model.save("my_model_v7.h5")
